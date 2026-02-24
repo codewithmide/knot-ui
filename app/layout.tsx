@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { Analytics } from "@vercel/analytics/next"
+
 
 export const metadata: Metadata = {
   title: 'Knot — Solana Agent Wallet',

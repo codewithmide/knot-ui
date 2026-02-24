@@ -1,10 +1,17 @@
 "use client"
 
 import { ArrowRight, Shield, Zap, Copy, Check } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 export function HeroSection() {
   const [copied, setCopied] = useState(false)
+  const [stats, setStats] = useState<{
+    agents?: number
+    deposits?: number
+    trades?: number
+    depositVolumeUsd?: number
+  } | null>(null)
+  const [statsError, setStatsError] = useState(false)
 
   const skillUrl = "https://api.useknot.xyz/skill.md"
 
@@ -12,6 +19,56 @@ export function HeroSection() {
     navigator.clipboard.writeText(skillUrl)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  useEffect(() => {
+    let isActive = true
+
+    const loadStats = async () => {
+      try {
+        const response = await fetch("/api/stats", { cache: "no-store" })
+        if (!response.ok) {
+          throw new Error("Failed to load stats")
+        }
+        const json = await response.json()
+        if (isActive) {
+          setStats(json.data?.totals ?? null)
+        }
+      } catch {
+        if (isActive) {
+          setStatsError(true)
+        }
+      }
+    }
+
+    loadStats()
+
+    return () => {
+      isActive = false
+    }
+  }, [])
+
+  const statItems = useMemo(
+    () => [
+      { label: "Agents", value: stats?.agents },
+      { label: "Deposits", value: stats?.deposits },
+      { label: "Trades", value: stats?.trades },
+      { label: "Deposit Volume (USD)", value: stats?.depositVolumeUsd, isCurrency: true },
+    ],
+    [stats]
+  )
+
+  const formatValue = (value?: number, isCurrency?: boolean) => {
+    if (value === undefined || value === null) {
+      return statsError ? "N/A" : "—"
+    }
+
+    const formatted = new Intl.NumberFormat("en-US", {
+      notation: "compact",
+      maximumFractionDigits: 1,
+    }).format(value)
+
+    return isCurrency ? `$${formatted}` : formatted
   }
 
   return (
@@ -114,18 +171,13 @@ export function HeroSection() {
 
         {/* Stats bar */}
         <div className="mx-auto mt-16 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-4">
-          {[
-            { label: "Chains", value: "Solana" },
-            { label: "Key Security", value: "TEE" },
-            { label: "DEX", value: "Jupiter" },
-            { label: "Tokens", value: "SOL, USDC+" },
-          ].map((stat) => (
+          {statItems.map((stat) => (
             <div
               key={stat.label}
               className="flex flex-col items-center gap-1 bg-card px-6 py-5"
             >
               <span className="text-lg font-bold text-foreground">
-                {stat.value}
+                {formatValue(stat.value, stat.isCurrency)}
               </span>
               <span className="text-xs text-muted-foreground">{stat.label}</span>
             </div>
