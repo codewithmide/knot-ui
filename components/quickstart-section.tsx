@@ -17,15 +17,16 @@ const steps = [
     step: "03",
     title: "Start transacting",
     description:
-      "Use your session token to transfer SOL/SPL tokens, trade on Jupiter, sign messages, and manage your wallet.",
+      "Use your session token to transfer tokens, trade on Jupiter, provide liquidity on Meteora, trade prediction markets on Kalshi, and more.",
   },
 ]
 
 const rules = [
   "Never share your sessionToken in logs, repos, or public channels",
-  "Confirm amount and recipient before any transfer",
-  "If a transfer is rejected by policy, do not retry with a larger amount",
-  "Your Solana address is public you can share it freely",
+  "Confirm amount and recipient before any transfer or trade",
+  "If a transaction is rejected by policy, do not retry to bypass the limit",
+  "Your Solana address is public — you can share it freely",
+  "Check market liquidity before buying prediction contracts",
 ]
 
 export function QuickstartSection() {
@@ -58,28 +59,6 @@ export function QuickstartSection() {
               </p>
             </div>
           ))}
-        </div>
-
-        {/* Rules card */}
-        <div className="mx-auto mt-16 max-w-2xl rounded-2xl border border-border bg-card p-8">
-          <h3 className="text-lg font-semibold text-foreground">
-            Security Rules
-          </h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Follow these guidelines to keep your agent wallet safe.
-          </p>
-          <ul className="mt-6 space-y-4">
-            {rules.map((rule) => (
-              <li key={rule} className="flex items-start gap-3">
-                <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                  <Check className="h-3 w-3 text-primary" />
-                </div>
-                <span className="text-sm leading-relaxed text-muted-foreground">
-                  {rule}
-                </span>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </section>

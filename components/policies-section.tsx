@@ -1,15 +1,15 @@
 const policies = [
   {
-    field: "maxSingleTransferSol",
+    field: "maxSingleTransactionInUsd",
     type: "number",
-    defaultVal: "1",
-    description: "Max SOL per transaction",
+    defaultVal: "100",
+    description: "Max USD value per transaction",
   },
   {
-    field: "dailyLimitSol",
+    field: "dailyLimitInUsd",
     type: "number",
-    defaultVal: "5",
-    description: "Rolling 24h SOL limit",
+    defaultVal: "500",
+    description: "Rolling 24h USD limit",
   },
   {
     field: "allowedRecipients",
@@ -21,7 +21,19 @@ const policies = [
     field: "allowTrading",
     type: "boolean",
     defaultVal: "true",
-    description: "Enable/disable token swaps",
+    description: "Enable/disable Jupiter token swaps",
+  },
+  {
+    field: "allowLiquidityProvision",
+    type: "boolean",
+    defaultVal: "true",
+    description: "Enable/disable Meteora DLMM operations",
+  },
+  {
+    field: "allowPredictionMarkets",
+    type: "boolean",
+    defaultVal: "true",
+    description: "Enable/disable Kalshi prediction trading",
   },
   {
     field: "sessionExpirationHours",

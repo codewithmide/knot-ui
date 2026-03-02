@@ -131,7 +131,8 @@ export function HeroSection() {
 
           <p className="mx-auto mt-8 max-w-xl text-pretty leading-tight text-muted-foreground md:text-lg">
             Autonomous Solana wallet with TEE-secured keys, Jupiter DEX trading,
-            and granular policy controls.
+            Meteora DLMM liquidity, Kalshi prediction markets, and granular
+            policy controls.
           </p>
 
         </div>

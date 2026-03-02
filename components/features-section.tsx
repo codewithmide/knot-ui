@@ -2,9 +2,11 @@ import {
   Shield,
   ArrowLeftRight,
   Wallet,
-  FileSignature,
+  Droplets,
+  TrendingUp,
   Settings2,
   Bell,
+  Fingerprint,
 } from "lucide-react"
 
 const features = [
@@ -27,22 +29,34 @@ const features = [
       "Send SOL and USDC with a single API call. Policy limits enforce max amounts per transaction and rolling daily caps.",
   },
   {
-    icon: FileSignature,
-    title: "Message & TX Signing",
+    icon: Droplets,
+    title: "Meteora DLMM Liquidity",
     description:
-      "Sign arbitrary messages for authentication or sign external transactions. All transactions are simulated before signing for safety.",
+      "Provide liquidity to Meteora DLMM pools and earn trading fees. Add two-sided or one-sided positions, claim rewards, and withdraw anytime.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Kalshi Prediction Markets",
+    description:
+      "Trade on regulated prediction markets across crypto, sports, politics, and more. USDC flows directly between your wallet and Kalshi.",
   },
   {
     icon: Settings2,
     title: "Granular Policy Controls",
     description:
-      "Set per-transaction limits, daily caps, recipient whitelists, and toggle trading or external signing on/off per wallet.",
+      "Set per-transaction USD limits, daily caps, recipient whitelists, and toggle trading, LP, or prediction markets on/off per wallet.",
   },
   {
     icon: Bell,
     title: "Auto Deposit Tracking",
     description:
       "Incoming SOL and SPL token deposits are detected in real-time via Helius webhooks. No polling or manual checks needed.",
+  },
+  {
+    icon: Fingerprint,
+    title: "Idempotent Mutations",
+    description:
+      "Every financial endpoint supports an Idempotency-Key header. Safely retry transfers, trades, and LP operations without double-execution.",
   },
 ]
 
@@ -58,12 +72,12 @@ export function FeaturesSection() {
             Everything an agent needs to transact on Solana
           </h2>
           <p className="mt-4 text-pretty text-muted-foreground leading-relaxed">
-            From secure key management to real-time deposit tracking, Knot
-            provides the full financial toolkit for autonomous agents.
+            From secure key management to DeFi liquidity and prediction markets,
+            Knot provides the full financial toolkit for autonomous agents.
           </p>
         </div>
 
-        <div className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
           {features.map((feature) => (
             <div
               key={feature.title}
