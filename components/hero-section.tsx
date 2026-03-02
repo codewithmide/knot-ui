@@ -6,10 +6,10 @@ import { useEffect, useMemo, useState } from "react"
 export function HeroSection() {
   const [copied, setCopied] = useState(false)
   const [stats, setStats] = useState<{
-    agents?: number
-    deposits?: number
-    trades?: number
-    depositVolumeUsd?: number
+    totalAgents?: number
+    totalTrades?: number
+    totalTransactions?: number
+    totalVolumeUsd?: number
   } | null>(null)
   const [statsError, setStatsError] = useState(false)
 
@@ -32,7 +32,7 @@ export function HeroSection() {
         }
         const json = await response.json()
         if (isActive) {
-          setStats(json.data?.totals ?? null)
+          setStats(json.data ?? null)
         }
       } catch {
         if (isActive) {
@@ -50,10 +50,10 @@ export function HeroSection() {
 
   const statItems = useMemo(
     () => [
-      { label: "Agents", value: stats?.agents },
-      { label: "Deposits", value: stats?.deposits },
-      { label: "Trades", value: stats?.trades },
-      { label: "Deposit Volume (USD)", value: stats?.depositVolumeUsd, isCurrency: true },
+      { label: "Agents", value: stats?.totalAgents },
+      { label: "Trades", value: stats?.totalTrades },
+      { label: "Transactions", value: stats?.totalTransactions },
+      { label: "Volume (USD)", value: stats?.totalVolumeUsd, isCurrency: true },
     ],
     [stats]
   )
